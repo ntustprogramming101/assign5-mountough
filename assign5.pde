@@ -422,12 +422,10 @@ void draw() {
 
 			image(soldier, soldierX[i], soldierY[i]);
 
-			if(soldierX[i] + SOIL_SIZE > playerX    // r1 right edge past r2 left
-		    && soldierX[i] < playerX + SOIL_SIZE    // r1 left edge past r2 right
-		    && soldierY[i] + SOIL_SIZE > playerY    // r1 top edge past r2 bottom
-		    && soldierY[i] < playerY + SOIL_SIZE) { // r1 bottom edge past r2 top
-
+      if(isHit(soldierX[i], soldierY[i], SOIL_SIZE,SOIL_SIZE,
+               playerX, playerY,SOIL_SIZE, SOIL_SIZE) == true){
 				playerHealth --;
+      
 
 				if(playerHealth == 0){
 
@@ -550,9 +548,9 @@ boolean isHit(float ax, float ay, float aw, float ah, float bx, float by, float 
 }
 
 String convertFramesToTimeString(int frames){
-  String timeString = nf((frames/60) % 60,2);
-  String timeStringMin = nf((frames/3600) % 60,2); 
-	return timeStringMin+":"+timeString;
+  float mm=int(frames/60/60);
+  float ss=int((frames/60))%60;
+  return (nf(int(mm),2)+":"+nf(int(ss),2));
 }
 
 color getTimeTextColor(int frames){
